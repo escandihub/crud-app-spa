@@ -10,3 +10,7 @@ export function deleteProduct(id){
 export function newProduct(data) {
 	return API().post('api/personal', data)
 }
+
+export function editProducto(data) {
+	return API().post('api/personal/' + data.id, data)
+}
