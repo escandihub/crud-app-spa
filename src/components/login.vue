@@ -42,7 +42,7 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions('LogUser'),
+		...mapActions(['LogUser']),
 		login() {
 			this.LogUser(this.user)
 		}
