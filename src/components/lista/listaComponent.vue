@@ -19,14 +19,16 @@
 				</b-row>
 			</template>
 		</b-table>
-		<confrimDeletion
+		<!-- <confrimDeletion
 			:show="deletionM"
 			:producto="producto"
 			@confirmar="deletionM = false"
-		/>
+		/> -->
 		<create 
 		:showCreateModal="showModal"
 		@modalClose="showModal = false"
+		:type="tipo"
+		:productC="producto"
 		/>
 	</div>
 </template>
@@ -38,13 +40,14 @@ import create from "./create";
 export default {
 	components: {
 		confrimDeletion,
-		create,
+		create
 	},
 	data() {
 		return {
-			producto: "",
+			producto: {},
 			deletionM: false,
 			showModal: false, // puede ser nuevo o editar
+			tipo: 0,
 			produts: [],
 			fields: [
 				{ key: "nombre", label: "Nombre" },
@@ -63,6 +66,9 @@ export default {
 				.catch((err) => console.log("something wrong"));
 		},
 		editar(row) {
+			this.tipo = 1
+			this.showModal = !this.showModal
+			this.producto = row;
 			console.log("editar here!");
 		},
 		eliminar(row) {
@@ -71,6 +77,8 @@ export default {
 			console.log("eliminar");
 		},
 		nuevo() {
+			this.tipo = 0
+			this.producto = {}
 			this.showModal = !this.showModal
 		},
 	},

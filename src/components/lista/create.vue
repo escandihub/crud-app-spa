@@ -1,6 +1,6 @@
 <template>
 	<div v-if="visualizar">
-		<b-modal @ok="nuevo" title="Nuevo Producto" centered v-model="visualizar">
+		<b-modal @ok="nuevo" :title="titulo" centered v-model="visualizar">
 			<div>
 				<b-container fluid>
 					<b-form-input
@@ -12,7 +12,7 @@
 						class="my-3"
 					></b-form-input>
 					<b-form-input
-						id="input-1"
+						id="input-2"
 						v-model="producto.descripcion"
 						type="text"
 						placeholder="Descripción"
@@ -29,15 +29,12 @@ import { newProduct } from "@/services/product";
 export default {
 	props: {
 		type: 0,
+		productC: Object,
 		showCreateModal: false,
 	},
 	data() {
 		return {
-			producto: {
-				nombre: "",
-				descripcion: "",
-				activo: 0,
-			},
+			producto: Object,
 		};
 	},
 	methods: {
@@ -62,6 +59,17 @@ export default {
 				this.$emit("modalClose", valor);
 			},
 		},
+		titulo(){
+			if(this.type == 0){
+				return 'Nuevo Producto'
+			}
+			return 'Editar Producto'
+		}
+	},
+	watch: {
+		productC(newValue, oldValue) {
+			this.producto = newValue
+		}
 	},
 };
 </script>
