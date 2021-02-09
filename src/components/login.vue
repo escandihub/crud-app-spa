@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
 	data() {
 		return {
@@ -41,8 +42,9 @@ export default {
 		};
 	},
 	methods: {
+		...mapActions('LogUser'),
 		login() {
-			
+			this.LogUser(this.user)
 		}
 	},
 	computed: {
