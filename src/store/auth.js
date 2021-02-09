@@ -1,15 +1,17 @@
 import { login } from "@/services/authentication"
+import API from '@/services/API'
+import router from "@/router"
 export const state = () => ({
 	logged: false,
-	user: Object
+	user: Object,
+	token: String
 })
 
 export const getters = {
-	getterValue: state => {
-		return state.value
+	token: state => {
+		return state.user;
 	}
 }
-
 export const mutations = {
 	Logeado: (state, payload) => {
 		state.user = payload
@@ -20,8 +22,16 @@ export const mutations = {
 export const actions = {
 	LogUser({ commit }, data) {
 		login(data).then((res) => {
-			commit('Logeado', data)
+			commit('Logeado', res.data)
+			localStorage.setItem("access_token", res.data)//token
+			router.push({ name: "Home" })
 		})
-		commit('updateValue', payload)
 	}
+}
+
+export default {
+	state,
+	mutations,
+	actions,
+	getters
 }
