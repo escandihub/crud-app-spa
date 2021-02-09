@@ -12,5 +12,5 @@ export function newProduct(data) {
 }
 
 export function editProducto(data) {
-	return API().post('api/personal/' + data.id, data)
+	return API().put('api/personal/' + data.id, data)
 }
