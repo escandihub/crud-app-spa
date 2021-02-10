@@ -1,4 +1,4 @@
-import { login } from "@/services/authentication"
+import { login, logoutService } from "@/services/authentication"
 import API from '@/services/API'
 import router from "@/router"
 export const state = () => ({
@@ -16,6 +16,13 @@ export const mutations = {
 	Logeado: (state, payload) => {
 		state.user = payload
 		state.logged = true
+	},
+	destroySesion: (state, payload) => {
+		localStorage.clear()
+		state.logged = false
+		state.user = {}
+		router.push('/login')
+		
 	}
 }
 
@@ -25,6 +32,12 @@ export const actions = {
 			commit('Logeado', res.data.user)
 			localStorage.setItem("access_token", res.data.token)//token
 			router.push({ name: "Home" })
+		})
+	},
+
+	logOut({ commit}) {
+		logoutService().then(res => {
+			commit('destroySesion')
 		})
 	}
 }
