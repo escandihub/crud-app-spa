@@ -3,11 +3,22 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <b-dropdown class="ml-3" right text="Menu">
+      <b-dropdown-item @click="logOut">cerrar Sesion</b-dropdown-item>
+      <!-- <b-dropdown-item>Item 2</b-dropdown-item>
+      <b-dropdown-divider></b-dropdown-divider>
+      <b-dropdown-item>Item 3</b-dropdown-item> -->
+    </b-dropdown>
     </div>
     <router-view/>
   </div>
 </template>
-
+<script>
+import { mapActions } from "vuex"
+export default {
+  methods: mapActions(['logOut']),
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
