@@ -2,7 +2,7 @@ import { login } from "@/services/authentication"
 import API from '@/services/API'
 import router from "@/router"
 export const state = () => ({
-	logged: false,
+	logged: !!localStorage.getItem('access_token'),
 	user: Object,
 	token: String
 })
