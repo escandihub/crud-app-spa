@@ -10,6 +10,9 @@ export const state = () => ({
 export const getters = {
 	token: state => {
 		return state.user;
+	},
+	isLogged: state => {
+		return state.logged;
 	}
 }
 export const mutations = {
