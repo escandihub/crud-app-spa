@@ -29,6 +29,9 @@ export default {
 					commit('FILL_PRODUCTS', res.data)
 				})
 				.catch((err) => console.log("something wrong"));
+		},
+		deleteProduct({ commit, dispatch }, data) {
+			commit('DEL_PRODUCT', data.id)
 		}
 	}
 }
