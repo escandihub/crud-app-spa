@@ -7,6 +7,7 @@ export default () => {
 	instancia.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`
 	
 	instancia.interceptors.response.use((resp) => { 
+		return resp
 	})
 	return instancia
 }
