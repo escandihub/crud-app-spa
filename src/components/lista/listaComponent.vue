@@ -3,7 +3,7 @@
 		<div class="float-right my-2">
 			<b-button @click="nuevo">Nuevo Producto</b-button>
 		</div>
-		<b-table striped hover :fields="fields" :items="produts">
+		<b-table striped hover :fields="fields" :items="products">
 			<template #cell(Acciones)="row">
 				<b-row>
 					<b-col>
@@ -34,13 +34,18 @@
 </template>
 
 <script>
-import { getAll } from "@/services/product";
 import confrimDeletion from "./confirm-deletion";
 import create from "./create";
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
 	components: {
 		confrimDeletion,
 		create
+	},
+	computed: {
+		products(){
+			return this.$store.state.product.products
+		}
 	},
 	data() {
 		return {
@@ -48,7 +53,6 @@ export default {
 			deletionM: false,
 			showModal: false, // puede ser nuevo o editar
 			tipo: 0,
-			produts: [],
 			fields: [
 				{ key: "nombre", label: "Nombre" },
 				{ key: "descripcion", label: "Descripción" },
@@ -57,14 +61,8 @@ export default {
 		};
 	},
 	methods: {
-		getProducts() {
-			getAll()
-				.then((res) => {
-					console.log(res);
-					this.produts = res.data;
-				})
-				.catch((err) => console.log("something wrong"));
-		},
+		...mapActions(['getProducts']),
+		...mapMutations(['DEL_PRODUCT']),
 		editar(row) {
 			this.tipo = 1
 			this.showModal = !this.showModal
@@ -74,6 +72,7 @@ export default {
 		eliminar(row) {
 			this.deletionM = !this.deletionM;
 			this.producto = row;
+			this.DEL_PRODUCT(row.id)
 			console.log("eliminar");
 		},
 		nuevo() {
