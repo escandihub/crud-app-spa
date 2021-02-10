@@ -1,5 +1,5 @@
 import { editProducto } from "../services/product"
-import { getAll } from "@/services/product";
+import { getAll, deleteProduct } from "@/services/product";
 
 export default {
 	state: {
@@ -31,7 +31,10 @@ export default {
 				.catch((err) => console.log("something wrong"));
 		},
 		deleteProduct({ commit, dispatch }, data) {
-			commit('DEL_PRODUCT', data.id)
+			deleteProduct(data.id).then((res) => {
+				commit('DEL_PRODUCT', data.id)
+			}).catch((err) => console.log('it wasnt fine'))
+			
 		}
 	}
 }
