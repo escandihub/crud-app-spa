@@ -1,4 +1,5 @@
 import { editProducto } from "../services/product"
+import { getAll } from "@/services/product";
 
 export default {
 	state: {
@@ -11,12 +12,23 @@ export default {
 	},
 	getters: {},
 	mutations: {
-		productos(state, payload) {
+		DEL_PRODUCT(state, id) {
+			state.products = state.products.filter(el => el.id != id)
+		},
+		FILL_PRODUCTS(state, payload) {
 			state.products = payload
 		},
 		editProducto(state, payload) {
 			state.products.map(el => el.id == payload.id ? payload : el)
 		}
 	},
-	actions: {}
+	actions: {
+		getProducts({ commit }, data) {
+			getAll()
+				.then((res) => {
+					commit('FILL_PRODUCTS', res.data)
+				})
+				.catch((err) => console.log("something wrong"));
+		}
+	}
 }
