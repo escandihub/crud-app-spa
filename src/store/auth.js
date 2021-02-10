@@ -28,10 +28,15 @@ export const mutations = {
 
 export const actions = {
 	LogUser({ commit }, data) {
-		login(data).then((res) => {
-			commit('Logeado', res.data.user)
-			localStorage.setItem("access_token", res.data.token)//token
-			router.push({ name: "Home" })
+		return new Promise((resolve, reject) => {
+			login(data).then((res) => {
+				commit('Logeado', res.data.user)
+				localStorage.setItem("access_token", res.data.token)//token
+				router.push({ name: "Home" })
+				resolve(res)
+			}).catch((err) => {
+				reject(err)
+			})
 		})
 	},
 

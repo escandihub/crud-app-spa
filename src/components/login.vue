@@ -15,6 +15,13 @@
 						placeholder="Ingrese su correo"
 						required
 					></b-form-input>
+					<span>
+						<div v-for="error in errors" :key="error">
+							<span v-if="error" style="color: red;">
+								{{ error[0] }}
+							</span>
+						</div>
+					</span>
 					<b-form-input
 						class="my-2"
 						id="input-2"
@@ -39,12 +46,17 @@ export default {
 				email: '',
 				password: '',
 			},
+			errors: []
 		};
 	},
 	methods: {
 		...mapActions(['LogUser']),
 		login() {
-			this.LogUser(this.user)
+			this.LogUser(this.user).then(res => {
+console.log(res);
+			}).catch(err => {
+				this.errors = err.response.data.errors
+			})
 		}
 	},
 	computed: {
