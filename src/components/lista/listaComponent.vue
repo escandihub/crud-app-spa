@@ -61,8 +61,7 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(['getProducts']),
-		...mapMutations(['DEL_PRODUCT']),
+		...mapActions(['getProducts', 'deleteProduct', 'notificar']),
 		editar(row) {
 			this.tipo = 1
 			this.showModal = !this.showModal
@@ -72,7 +71,13 @@ export default {
 		eliminar(row) {
 			this.deletionM = !this.deletionM;
 			this.producto = row;
-			this.DEL_PRODUCT(row.id)
+			this.deleteProduct(row)
+			this.notificar({
+				title: 'Producto',
+				body: 'Se ha Eliminado',
+				type: 'warning',
+				is: this
+			})
 			console.log("eliminar");
 		},
 		nuevo() {
