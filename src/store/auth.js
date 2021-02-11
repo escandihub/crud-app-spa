@@ -1,6 +1,7 @@
-import { login, logoutService } from "@/services/authentication"
+import { login, logoutService, loginOauth } from "@/services/authentication"
 import API from '@/services/API'
 import router from "@/router"
+import axios from "axios"
 export const state = () => ({
 	logged: !!localStorage.getItem('access_token'),
 	user: Object,
@@ -47,6 +48,17 @@ export const actions = {
 		logoutService().then(res => {
 			commit('destroySesion')
 		})
+	},
+
+	/**
+	 * se despacha un enpoint que redirecciona al controll de acceso 
+	 * de github
+	 * @param {*} ctx 
+	 * @param {*} param1 
+	 */
+	async fetchOauthUrl(ctx, { provider }) {
+		const { data } = await loginOauth(provider)
+		return data.url
 	}
 }
 
