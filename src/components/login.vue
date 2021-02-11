@@ -31,6 +31,7 @@
 						required
 					></b-form-input>
 					<b-button @click="login" :disabled="valid" variant="primary">Login</b-button>
+					<LoginWithGithub />
 				</div>
 			</b-card-body>
 		</b-card>
@@ -39,7 +40,11 @@
 
 <script>
 import { mapActions } from 'vuex'
+import LoginWithGithub from './typesLogin/LoginWithGithub'
 export default {
+	components: {
+		LoginWithGithub,
+	},
 	data() {
 		return {
 			user: {
