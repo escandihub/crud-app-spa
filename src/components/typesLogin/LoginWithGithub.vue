@@ -9,8 +9,8 @@
 export default {
 	name: 'LoginWithGithub',
 	computed: {
-		githubAuth: () => window.config.githubAuth,
-		url: () => 'login/github'
+		githubAuth: () => 'fce84617b83c3ac14f4d',
+		url: () => 'api/login/github'
 	},
 	mounted () {
 		window.addEventListener('message', this.onMessage, false);
@@ -19,12 +19,10 @@ export default {
 		window.removeEventListener('message', this.onMessage);
 	},
 	methods: {
-		login() {
+		async login() {
 			const newWindow = openWindow('', 'login')
-			const url = this.$store.dispatch('fetchOauthUrl', {
+			const url =  await this.$store.dispatch('fetchOauthUrl', {
 				provider: 'github'
-			}).then(res => {
-				console.log('reponse: from laravel API');
 			})
 			newWindow.location.href = url
 		},
@@ -33,15 +31,16 @@ export default {
      * @param {MessageEvent} e
      */
     onMessage (e) {
+			console.log(e.data);
       if (e.origin !== window.origin || !e.data.token) {
         return
       }
-
-      this.$store.dispatch('auth/saveToken', {
+console.log('despachando');
+      this.$store.dispatch('saveToken', {
         token: e.data.token
       })
 
-      this.$router.push({ name: 'home' })
+      this.$router.push({ name: "Home" })
     }
 	},
 }

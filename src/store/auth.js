@@ -27,6 +27,10 @@ export const mutations = {
 		state.user = {}
 		router.push('/login')
 		
+	},
+	saveToken: (state, payload) => {
+		localStorage.setItem("access_token", payload)//token
+		state.logged = true
 	}
 }
 
@@ -59,6 +63,9 @@ export const actions = {
 	async fetchOauthUrl(ctx, { provider }) {
 		const { data } = await loginOauth(provider)
 		return data.url
+	},
+	saveToken({ commit }, payload) {
+		commit('saveToken', payload)
 	}
 }
 
