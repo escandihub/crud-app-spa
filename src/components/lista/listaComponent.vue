@@ -3,7 +3,7 @@
 		<div class="float-right my-2">
 			<b-button @click="nuevo">Nuevo Producto</b-button>
 		</div>
-		<b-table striped hover :fields="fields" :items="products">
+		<b-table striped hover :fields="fields" :items="products" :busy="isBusy">
 			<template #cell(Acciones)="row">
 				<b-row>
 					<b-col>
@@ -49,6 +49,7 @@ export default {
 	},
 	data() {
 		return {
+			isBusy: false,
 			producto: {},
 			deletionM: false,
 			showModal: false, // puede ser nuevo o editar
@@ -87,7 +88,10 @@ export default {
 		},
 	},
 	mounted() {
-		this.getProducts();
+		this.isBusy = true
+		this.getProducts().then(() => {
+			this.isBusy = false
+		}).catch(() => this.isBusy = false);
 	},
 };
 </script>

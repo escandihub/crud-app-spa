@@ -24,17 +24,20 @@ export default {
 	},
 	actions: {
 		getProducts({ commit }, data) {
-			getAll()
-				.then((res) => {
-					commit('FILL_PRODUCTS', res.data)
-				})
-				.catch((err) => console.log("something wrong"));
+			return new Promise((resolve, reject) => {
+				getAll()
+					.then((res) => {
+						resolve('ok')
+						commit('FILL_PRODUCTS', res.data.data)
+					})
+					.catch((err) => console.log("something wrong"));
+			})
 		},
 		deleteProduct({ commit, dispatch }, data) {
 			deleteProduct(data.id).then((res) => {
 				commit('DEL_PRODUCT', data.id)
 			}).catch((err) => console.log('it wasnt fine'))
-			
+
 		}
 	}
 }
