@@ -2,13 +2,14 @@ import { login, logoutService, loginOauth } from "@/services/authentication"
 import API from '@/services/API'
 import router from "@/router"
 import axios from "axios"
+import * as types from "./mutation_types"
 export const state = () => ({
 	logged: !!localStorage.getItem('access_token'),
 	user: Object,
 	token: String
 })
 
-export const getters = {
+export const getters = { 
 	token: state => {
 		return state.user;
 	},
@@ -17,7 +18,7 @@ export const getters = {
 	}
 }
 export const mutations = {
-	Logeado: (state, payload) => {
+	[types.LOGGED]: (state, payload) => {
 		state.user = payload
 		state.logged = true
 	},
