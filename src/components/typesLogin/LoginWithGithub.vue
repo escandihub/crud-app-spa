@@ -31,8 +31,8 @@ export default {
      * @param {MessageEvent} e
      */
     onMessage (e) {
-			console.log(e.data);
-      if (e.origin !== window.origin || !e.data.token) {
+			console.log(e);
+      if (e.origin !== 'http://127.0.0.1:8000') {
         return
       }
 console.log('despachando');
