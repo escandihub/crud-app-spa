@@ -1,3 +1,3 @@
 //auth
-export default LOGGED = 'Logeado'
-export default LOGOUT = 'destroySesion'
+export const LOGGED = 'Logeado'
+export const LOGOUT = 'destroySesion'

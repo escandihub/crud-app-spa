@@ -17,12 +17,24 @@ export const getters = {
 		return state.logged;
 	}
 }
+/**
+ * set varables to save token a redirect 
+ * to home page
+ */
 export const mutations = {
 	[types.LOGGED]: (state, payload) => {
 		state.user = payload
 		state.logged = true
+		localStorage.setItem("access_token", payload.token)//token
+		router.push({ name: "Home" })
 	},
-	destroySesion: (state, payload) => {
+	/**
+	 * clean all varable on client to make 
+	 * un-authenticate
+	 * @param {Object} state 
+	 * @param {Object} payload 
+	 */
+	[types.LOGOUT]: (state, payload) => {
 		localStorage.clear()
 		state.logged = false
 		state.user = {}
@@ -39,9 +51,7 @@ export const actions = {
 	LogUser({ commit }, data) {
 		return new Promise((resolve, reject) => {
 			login(data).then((res) => {
-				commit('Logeado', res.data.user)
-				localStorage.setItem("access_token", res.data.token)//token
-				router.push({ name: "Home" })
+				commit(types.LOGGED, res.data)
 				resolve(res)
 			}).catch((err) => {
 				reject(err)
