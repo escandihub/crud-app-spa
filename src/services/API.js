@@ -8,6 +8,10 @@ export default () => {
 			'Access-Control-Allow-Origin': '*',
 		'Access-Control-Allow-Headers': '*'},
 	})
+	/**
+	 * this athoritazion come from <Sanctum API token Authorization> : refec:
+	 * https://laravel.com/docs/8.x/sanctum#api-token-authentication
+	 */
 	instancia.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`
 	instancia.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 	instancia.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
