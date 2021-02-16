@@ -23,7 +23,12 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+  },
+  {
+    path: '/Cardpay',
+    name: 'Cardpay',
+    component: () => import('../views/Cardpay.vue'),
+  },
 ]
 
 const router = new VueRouter({
@@ -31,5 +36,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-middleware(router)
+// middleware(router)
 export default router
