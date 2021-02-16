@@ -8,7 +8,7 @@
 <script>
 import FormPay from "@/components/Openpay/FormPay";
 export default {
-	name: "Oneclick",
+	name: "Cardpay",
 	components: {
 		FormPay,
 	},
